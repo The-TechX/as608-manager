@@ -1,0 +1,9 @@
+*.bin
+*.elf
+*.map
+*.hex
+*.uf2
+*.log
+.DS_Store
+.vscode/
+.idea/
