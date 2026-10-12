@@ -1,6 +1,6 @@
 # AS608 Manager
 
-Firmware independiente para **ESP32 DevKit V1** y sensor de huellas **AS608**, con interfaz web local para configuración, diagnóstico, inventario y administración de plantillas.
+Standalone firmware for **ESP32 DevKit V1** and the **AS608 fingerprint sensor**, featuring a local web interface for setup, diagnostics, fingerprint enrollment, template inventory, and management.
 
 ## Hardware
 
@@ -9,38 +9,38 @@ Firmware independiente para **ESP32 DevKit V1** y sensor de huellas **AS608**, c
 | TX | GPIO16 (RX2) |
 | RX | GPIO17 (TX2) |
 | Touch / Wake | GPIO4 |
-| VCC / GND | Alimentación y tierra según especificaciones de tu módulo |
+| VCC / GND | Power and ground according to your module's specifications |
 
-UART del sensor: **57600 baud**. Monitor serie: **115200 baud**.
+Sensor UART: **57600 baud**. Serial monitor: **115200 baud**.
 
-## Instalación
+## Installation
 
-1. Abre `AS608_Manager/AS608_Manager.ino` en Arduino IDE.
-2. Selecciona tu placa ESP32 e instala **Adafruit Fingerprint Sensor Library**.
-3. Compila y carga el sketch.
-4. En el primer inicio, conéctate al punto de acceso `AS608-Manager-Setup` y visita `http://192.168.4.1`.
-5. Configura Wi-Fi y credenciales de administrador. Posteriormente, accede mediante la IP LAN del ESP32.
+1. Open `AS608_Manager/AS608_Manager.ino` in Arduino IDE.
+2. Select your ESP32 board and install the **Adafruit Fingerprint Sensor Library**.
+3. Compile and flash the sketch.
+4. On first boot, connect to the `AS608-Manager-Setup` access point and visit `http://192.168.4.1`.
+5. Configure Wi-Fi and administrator credentials. Afterwards, access the device through its LAN IP address.
 
-**Para actualizaciones:** desactiva `Erase All Flash Before Sketch Upload` para preservar las credenciales en NVS. Las plantillas biométricas residen en la memoria del AS608.
+**When updating firmware:** disable `Erase All Flash Before Sketch Upload` to preserve credentials stored in NVS. Fingerprint templates are stored in the AS608 sensor's memory.
 
-## Funcionalidades
+## Features
 
-- Inventario y administración de plantillas biométricas.
-- Enrolamiento y eliminación de huellas.
-- Identificación automática por señal de wake en GPIO4.
-- Métricas de captura, conversión, búsqueda y latencia total.
-- Monitor visual con estados neutral, reconocido y no reconocido.
-- Configuración Wi-Fi y diagnóstico desde una interfaz web responsive.
-- Modo SoftAP para configuración inicial o recuperación de conectividad.
+- Fingerprint template inventory and management.
+- Enrollment and deletion of fingerprints.
+- Automatic identification triggered by GPIO4.
+- Capture, conversion, search, and total latency metrics.
+- Visual monitoring with neutral, matched, and not-found states.
+- Responsive web UI for Wi-Fi configuration and diagnostics.
+- SoftAP mode for initial setup or connectivity recovery.
 
-## Seguridad
+## Security
 
-**Prototipo para red local confiable. No exponer directamente a Internet.**
+**Local-network prototype. Do not expose directly to the Internet.**
 
-- La interfaz utiliza HTTP sin cifrado; HTTP Basic no protege las credenciales frente a interceptación en la red.
-- El punto de acceso inicial utiliza credenciales de aprovisionamiento definidas en el firmware: cámbialas antes de utilizarlo fuera de un entorno controlado.
-- No conectar directamente relés o mecanismos de acceso físico sin autorización y validaciones adicionales.
+- The interface uses unencrypted HTTP; HTTP Basic does not protect credentials against interception.
+- The initial access point uses provisioning credentials defined in the firmware. Change them before use outside a controlled environment.
+- Do not connect physical access mechanisms without additional authorization and safety controls.
 
-## Estado
+## Project status
 
-Proyecto inicial; todavía sin integración remota con sistemas externos. Las pruebas de compilación y hardware deben realizarse en el entorno ESP32 correspondiente.
+Initial project without remote-system integration. Compilation and hardware validation should be performed in the target ESP32 environment.
