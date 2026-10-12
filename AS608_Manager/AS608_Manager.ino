@@ -203,16 +203,16 @@ button.primary{background:#fafafa;color:#09090b;border-color:#fafafa}button.dang
 <main class="main"><header class="top"><div><h1 id="heading">Sensor status</h1><p id="subtitle">Real-time AS608 information</p></div><button id="refreshBtn" onclick="refresh()">Refresh</button></header>
 <section id="status" class="view active"><div class="cards"><div class="card metric"><div class="muted">Capacity</div><div class="val" id="cap">—</div><div class="unit">templates</div></div><div class="card metric"><div class="muted">Enrolled</div><div class="val" id="count">—</div><div class="unit">fingerprints</div></div><div class="card metric"><div class="muted">Available</div><div class="val" id="free">—</div><div class="unit">slots</div></div><div class="card metric"><div class="muted">Security level</div><div class="val" id="level">—</div><div class="unit">sensor configuration</div></div><div class="card metric"><div class="muted">Touch GPIO4</div><div class="val" id="touch">—</div><div class="unit">touch detection</div></div></div>
 <div class="columns"><div class="card"><div class="sectionhead"><div><h2>Memory map</h2><p>Sensor slots · select a cell</p></div><select id="page" onchange="drawSlots()"><option value="0">0–99</option><option value="1">100–199</option><option value="2">200–299</option></select></div><div class="slotgrid" id="slots"></div><div class="legend"><span><i class="dot on"></i>Occupied</span><span><i class="dot"></i>Free</span><span id="mapMessage"></span></div></div><div class="card"><div class="sectionhead"><h2>Sensor information</h2><span class="pill" id="online">—</span></div><div id="facts"></div></div></div>
-<div class="columns" style="margin-top:16px"><div class="card"><div class="sectionhead"><div><h2>Selected slot</h2><p>Available template actions</p></div><span class="pill" id="selectedId">ID 0</span></div><div class="detail" id="selectedInfo">Select a slot</div><div class="panelactions"><button onclick="showView('prints')">Gestionar fingerprints</button><button onclick="showView('identify')">Identify dedo</button></div></div><div class="card"><div class="sectionhead"><h2>Diagnostics rápido</h2><button onclick="refresh()">Run</button></div><div id="health"></div></div></div></section>
-<section id="prints" class="view"><div class="columns"><div class="card"><div class="sectionhead"><div><h2>Gestión de templates</h2><p>Enroll, inspect, and delete IDs</p></div><span class="pill" id="printTotal">—</span></div><div class="field"><label>Template ID (0 to capacity − 1)</label><input id="printId" type="number" min="0" value="1"></div><div class="panelactions"><button class="primary" onclick="startJob('enroll')">Enroll at ID</button><button class="danger" onclick="deleteOne()">Delete ID</button><button onclick="refresh()">Refresh inventory</button></div><div class="notice">Enrollment: place your finger, lift it, and place it again. These actions modify AS608 memory.</div><div class="detail" id="jobState">No active operation</div><button onclick="cancelJob()">Cancel operation</button></div><div class="card"><div class="sectionhead"><h2>Occupied IDs</h2></div><div id="occupiedList" class="muted">—</div></div></div><div class="card"><div class="sectionhead"><h2>Reset biometric memory</h2></div><p class="muted">Borra todas las templates del sensor. No elimina las credenciales Wi-Fi.</p><button class="danger" onclick="clearAll()">Erase AS608 memory</button></div></section>
+<div class="columns" style="margin-top:16px"><div class="card"><div class="sectionhead"><div><h2>Selected slot</h2><p>Available template actions</p></div><span class="pill" id="selectedId">ID 0</span></div><div class="detail" id="selectedInfo">Select a slot</div><div class="panelactions"><button onclick="showView('prints')">Manage fingerprints</button><button onclick="showView('identify')">Identify dedo</button></div></div><div class="card"><div class="sectionhead"><h2>Diagnostics rápido</h2><button onclick="refresh()">Run</button></div><div id="health"></div></div></div></section>
+<section id="prints" class="view"><div class="columns"><div class="card"><div class="sectionhead"><div><h2>Template management</h2><p>Enroll, inspect, and delete IDs</p></div><span class="pill" id="printTotal">—</span></div><div class="field"><label>Template ID (0 to capacity − 1)</label><input id="printId" type="number" min="0" value="1"></div><div class="panelactions"><button class="primary" onclick="startJob('enroll')">Enroll at ID</button><button class="danger" onclick="deleteOne()">Delete ID</button><button onclick="refresh()">Refresh inventory</button></div><div class="notice">Enrollment: place your finger, lift it, and place it again. These actions modify AS608 memory.</div><div class="detail" id="jobState">No active operation</div><button onclick="cancelJob()">Cancel operation</button></div><div class="card"><div class="sectionhead"><h2>Occupied IDs</h2></div><div id="occupiedList" class="muted">—</div></div></div><div class="card"><div class="sectionhead"><h2>Reset biometric memory</h2></div><p class="muted">Borra todas las templates del sensor. No elimina las credenciales Wi-Fi.</p><button class="danger" onclick="clearAll()">Erase AS608 memory</button></div></section>
 <section id="identify" class="view"><div class="card live-card"><div class="live-top"><span class="pill green">LIVE MONITOR</span><span class="muted">GPIO4 · Wake trigger</span></div><div class="live-hero" id="liveHero"><div class="live-glow neutral"></div><div class="live-glow success"></div><div class="live-glow failure"></div><div class="finger-orb" id="fingerOrb"></div><h2 id="liveTitle">Waiting for fingerprint</h2><p id="liveDescription">Place your finger on the AS608 sensor</p><div class="live-id" id="liveId">—</div></div><div class="live-metrics"><div><span>AS608 confidence</span><strong id="liveConfidence">—</strong><small>Native score, not a percentage</small></div><div><span>Wake → result</span><strong id="liveLatency">—</strong><small>Total measured time</small></div></div><div class="live-timings"><span id="liveCapture">Capture —</span><span id="liveConvert">Conversion —</span><span id="liveSearch">Search —</span></div><div class="live-breakdown" id="liveBreakdown" hidden><div class="kv"><span>First getImage()</span><strong id="liveFirstImage">—</strong></div><div class="kv"><span>Capture attempts</span><strong id="liveAttempts">—</strong></div><div class="kv"><span>NOFINGER responses</span><strong id="liveRetries">—</strong></div><div class="kv"><span>Total time in getImage()</span><strong id="liveImageCalls">—</strong></div><div class="kv"><span>Time outside measured calls</span><strong id="liveOverhead">—</strong></div></div><div class="muted" id="liveFooter">Automatic identification on GPIO4 HIGH. Remove your finger to rearm.</div></div></section>
-<section id="diagnostics" class="view"><div class="card"><div class="sectionhead"><h2>Diagnostics técnico</h2><div class="panelactions"><button onclick="refresh()">Refresh</button><button onclick="exportJSON()">Export JSON</button></div></div><pre id="json">Waiting...</pre></div></section>
+<section id="diagnostics" class="view"><div class="card"><div class="sectionhead"><h2>Technical diagnostics</h2><div class="panelactions"><button onclick="refresh()">Refresh</button><button onclick="exportJSON()">Export JSON</button></div></div><pre id="json">Waiting...</pre></div></section>
 <section id="wifi" class="view"><div class="columns"><div class="card"><h2>Connectivity</h2><div id="wifiFacts"></div><button onclick="scanNetworks()">Scan available networks</button><div id="networks" class="detail"></div></div><div class="card"><h2>Provisioning</h2><p class="muted">Connect the device to Wi-Fi. In AP mode, open 192.168.4.1.</p><div class="field"><label>SSID</label><input id="ssid" maxlength="32" autocomplete="off"></div><div class="field"><label>Wi-Fi password</label><input id="password" type="password" autocomplete="off"></div><div class="panelactions"><button class="primary" id="saveWifiBtn" onclick="saveWifi()">Save and connect</button><button class="danger" onclick="forgetWifi()">Forget Wi-Fi and start SoftAP</button></div><div class="notice" id="wifiMessage" role="status" aria-live="polite">Select a 2.4 GHz Wi-Fi network.</div><div id="adminSetup" class="card" style="display:none;margin-top:16px"><h2>Create administrator</h2><p class="muted">Wi-Fi connected. Secure device administration before leaving SoftAP.</p><div class="field"><label>Administrator username</label><input id="newAdminUser" value="admin" autocomplete="username"></div><div class="field"><label>Administrator password (minimum 12 characters)</label><input id="newAdminPass" type="password" autocomplete="new-password"></div><div class="field"><label>Confirm password</label><input id="newAdminConfirm" type="password" autocomplete="new-password"></div><button class="primary" id="createAdminBtn" onclick="createAdmin()">Create administrator y finalizar</button><div class="notice" id="adminMessage" role="status"></div></div></div></div></section>
 <section id="system" class="view"><div class="card"><h2>Device information</h2><div id="systemFacts"></div><div class="panelactions" style="margin-top:20px"><button onclick="restartDevice()">Restart ESP32</button><button onclick="showView('diagnostics')">View diagnostics</button></div><div class="notice">Firmware de mantenimiento. Al cargar otro firmware en el ESP32, las templates almacenadas en el AS608 permanecen intactas.</div></div></section>
 <section id="connections" class="view"><div class="card"><h2>Connections e integraciones</h2><p class="muted">Future integration design. The AS608 core remains independent of external systems.</p><div class="kv"><span>REST Management API</span><span class="green">Local · </span></div><div class="kv"><span>Webhook HTTP</span><span class="muted">Planned</span></div><div class="kv"><span>MQTT</span><span class="muted">Planned</span></div><div class="kv"><span>Odoo / PowerGym</span><span class="muted">Future adapter</span></div><div class="notice">No external connections are active. Sensor operations remain local.</div></div></section>
 </main></div><script>
 const $=id=>document.getElementById(id);let state=null,selected=0,busy=false,authHeader="",deviceMode=null;
-const titles={status:['Sensor status','Real-time AS608 information'],prints:['Fingerprints','Ciclo de vida de templates biométricas'],identify:['Identify','Reconocimiento local de fingerprints'],diagnostics:['Diagnostics','Technical status and export'],wifi:['Wi-Fi','Connectivity y provisioning'],system:['System','ESP32 configuration'],connections:['Connections','External integrations and protocols']};
+const titles={status:['Sensor status','Real-time AS608 information'],prints:['Fingerprints','Biometric template lifecycle'],identify:['Identify','Local fingerprint recognition'],diagnostics:['Diagnostics','Technical status and export'],wifi:['Wi-Fi','Connectivity and provisioning'],system:['System','ESP32 configuration'],connections:['Connections','External integrations and protocols']};
 function showView(name){$('refreshBtn').hidden=name==='identify';document.querySelectorAll('.view').forEach(e=>e.classList.toggle('active',e.id===name));document.querySelectorAll('[data-view]').forEach(e=>e.classList.toggle('active',e.dataset.view===name));$('heading').textContent=titles[name][0];$('subtitle').textContent=titles[name][1]}
 document.querySelectorAll('[data-view]').forEach(e=>e.onclick=()=>showView(e.dataset.view));
 async function api(path,method='GET',data){let opts={method,headers:{}};if(authHeader)opts.headers['Authorization']=authHeader;if(data){opts.headers['Content-Type']='application/x-www-form-urlencoded';opts.body=new URLSearchParams(data)}let r=await fetch(path,opts);let txt=await r.text();let parsed;try{parsed=JSON.parse(txt)}catch{parsed={error:txt}}if(!r.ok)throw Error((r.status===401?'Invalid administrator credentials. ': '')+(parsed.error||r.statusText));return parsed}
@@ -259,11 +259,11 @@ async function createAdmin(){
  catch(e){$('adminMessage').textContent='Error: '+e.message;$('createAdminBtn').disabled=false}
 }
 async function forgetWifi(){if(!confirm('Delete Wi-Fi credentials and restart in SoftAP mode?'))return;try{await api('/api/wifi/reset','POST');alert('Restarting in SoftAP mode. Connect to AS608-Manager-Setup')}catch(e){alert(e.message)}}
-async function restartDevice(){if(!confirm('¿Restart ESP32?'))return;try{await api('/api/restart','POST')}catch(e){alert(e.message)}}
+async function restartDevice(){if(!confirm('Restart ESP32?'))return;try{await api('/api/restart','POST')}catch(e){alert(e.message)}}
 async function startJob(type){let id=Number($('printId').value);if(type==='enroll'&&(!Number.isInteger(id)||id<0||!state||id>=state.sensor.capacity)){alert('ID out of range');return}try{let d=await api('/api/job/start','POST',{type,id});$('jobState').textContent=d.message;$('identifyState').textContent=d.message;showView(type==='enroll'?'prints':'identify')}catch(e){alert(e.message)}}
 async function cancelJob(){try{let d=await api('/api/job/cancel','POST');$('jobState').textContent=d.message;$('identifyState').textContent=d.message}catch(e){alert(e.message)}}
 async function deleteOne(){let id=Number($('printId').value);if(!Number.isInteger(id)||id<0||!state||id>=state.sensor.capacity){alert('Invalid ID');return}if(!confirm('Permanently delete template ID '+id+'?'))return;try{let d=await api('/api/fingerprint/delete','POST',{id});alert(d.message);await refresh()}catch(e){alert(e.message)}}
-async function clearAll(){if(!confirm('ATENCIÓN: se borrarán TODAS las templates del AS608. ¿Continuar?'))return;let v=prompt('Type DELETE ALL to confirm:');if(v!=='DELETE ALL')return;try{let d=await api('/api/fingerprint/clear','POST',{confirm:v});alert(d.message);await refresh()}catch(e){alert(e.message)}}
+async function clearAll(){if(!confirm('WARNING: ALL AS608 templates will be deleted. Continue?'))return;let v=prompt('Type DELETE ALL to confirm:');if(v!=='DELETE ALL')return;try{let d=await api('/api/fingerprint/clear','POST',{confirm:v});alert(d.message);await refresh()}catch(e){alert(e.message)}}
 function exportJSON(){if(!state)return;let b=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});let u=URL.createObjectURL(b);let a=document.createElement('a');a.href=u;a.download='as608-diagnostic.json';a.click();URL.revokeObjectURL(u)}
 const LIVE_TTL_MS=5000;
 let liveSeq=-1, liveWasScanning=false, liveExpired=false;
@@ -322,7 +322,7 @@ async function pollJob(){try{let d=await api('/api/job');$('jobState').textConte
    return;
  }
  let username=prompt('Administrator username');
- let password=prompt('Contraseña administrativa');
+ let password=prompt('Administrator password');
  if(!username || !password){$('sidebarInfo').textContent='Sign in to manage the device';return}
  authHeader='Basic '+btoa(unescape(encodeURIComponent(username+':'+password)));
  await refresh();
@@ -334,7 +334,7 @@ async function pollJob(){try{let d=await api('/api/job');$('jobState').textConte
 
 bool requireAdmin() {
   if (!adminConfigured) {
-    server.send(403, "application/json", "{\"error\":\"Configura primero el administrador desde el SoftAP\"}");
+    server.send(403, "application/json", "{\"error\":\"Configure the administrator from SoftAP first\"}");
     return false;
   }
   if (server.authenticate(adminUser.c_str(), adminPassword.c_str())) return true;
@@ -357,13 +357,13 @@ void handleAdminSetup() {
     return;
   }
   if (!securityPrefs.putString("user", user) || !securityPrefs.putString("pass", password)) {
-    server.send(500, "application/json", "{\"error\":\"No se pudieron guardar las credenciales\"}");
+    server.send(500, "application/json", "{\"error\":\"Could not save credentials\"}");
     return;
   }
   adminUser = user; adminPassword = password; adminConfigured = true;
   wifiRestartAt = millis() + 10000;
   Serial.println("[Security] Admin configured; restarting in 10 seconds");
-  server.send(200, "application/json", "{\"message\":\"Administrador creado; reiniciando en 10 seconds\"}");
+  server.send(200, "application/json", "{\"message\":\"Administrator created; restarting in 10 seconds\"}");
 }
 void jsonResponse(const String& s, int code) { server.send(code,"application/json; charset=utf-8",s); }
 String escapeJson(String s) { s.replace("\\","\\\\");s.replace("\"","\\\"");s.replace("\n","\\n");s.replace("\r","\\r");return s; }
@@ -403,7 +403,7 @@ void runJob(){
   lastPoll=millis();
   uint8_t r;
   if(job==JOB_IDENTIFY){
-    if(!digitalRead(PIN_TOUCH)){jobMessage="Coloca el dedo en el sensor";return;}
+    if(!digitalRead(PIN_TOUCH)){jobMessage="Place your finger on the sensor";return;}
     r=sensor.getImage();if(r==FINGERPRINT_NOFINGER)return;
     if(r!=FINGERPRINT_OK){stopJob("error","Error capturing image: "+String(r));return;}
     r=sensor.image2Tz(1);if(r!=FINGERPRINT_OK){stopJob("error","Error processing fingerprint: "+String(r));return;}
@@ -415,18 +415,18 @@ void runJob(){
   }
   if(job==JOB_ENROLL){
     if(jobStage==0){
-      jobMessage="Paso 1/3: coloca el dedo";
+      jobMessage="Step 1/3: place your finger";
       if(!digitalRead(PIN_TOUCH))return;
       r=sensor.getImage();if(r==FINGERPRINT_NOFINGER)return;
       if(r!=FINGERPRINT_OK){stopJob("error","Error capturing first image: "+String(r));return;}
       r=sensor.image2Tz(1);if(r!=FINGERPRINT_OK){stopJob("error","First template error: "+String(r));return;}
-      jobStage=1;jobMessage="Paso 2/3: retira el dedo";return;
+      jobStage=1;jobMessage="Step 2/3: lift your finger";return;
     }
     if(jobStage==1){
       if(digitalRead(PIN_TOUCH))return;
       // Confirm image engine has also observed removal.
       if(sensor.getImage()!=FINGERPRINT_NOFINGER)return;
-      jobStage=2;jobMessage="Paso 3/3: coloca el mismo dedo otra vez";return;
+      jobStage=2;jobMessage="Step 3/3: place the same finger again";return;
     }
     if(jobStage==2){
       if(!digitalRead(PIN_TOUCH))return;
@@ -480,7 +480,7 @@ void handleNetworks(){
   WiFi.scanDelete();j+="]}";jsonResponse(j);
 }
 void handleWifi(){
-  if (!adminConfigured && !onSetupAP()) return errorResponse("Usa el SoftAP para configurar Wi-Fi",403);
+  if (!adminConfigured && !onSetupAP()) return errorResponse("Use SoftAP to configure Wi-Fi",403);
   if(wifiPending)return errorResponse("Connection in progress",409);
   String ssid=server.arg("ssid"), pass=server.arg("password");
   if(ssid.isEmpty()||ssid.length()>32)return errorResponse("SSID invalido");
@@ -504,7 +504,7 @@ void processWifi(){
       size_t a=prefs.putString("ssid",wifiTarget),b=prefs.putString("password",wifiPassword);
       wifiPassword="";
       wifiPending=false;
-      if(a==0||b==0){wifiState="error";wifiDetail="Connected, pero no se pudo guardar en NVS";Serial.println("[WiFi] NVS save failed");return;}
+      if(a==0||b==0){wifiState="error";wifiDetail="Connected, but failed to save to NVS";Serial.println("[WiFi] NVS save failed");return;}
       wifiState="connected";wifiDetail="Connected. IP: "+wifiNewIP+". The device will restart";
       Serial.printf("[WiFi] Connected, IP: %s; restarting soon\n",wifiNewIP.c_str());
       if(adminConfigured) wifiRestartAt=millis()+10000;
@@ -519,9 +519,9 @@ void processWifi(){
     Serial.println("[WiFi] Restarting into station mode");Serial.flush();ESP.restart();
   }
 }
-void handleWifiReset(){prefs.remove("ssid");prefs.remove("password");jsonResponse("{\"message\":\"Reiniciando en SoftAP\"}");delay(400);ESP.restart();}
+void handleWifiReset(){prefs.remove("ssid");prefs.remove("password");jsonResponse("{\"message\":\"Restarting in SoftAP\"}");delay(400);ESP.restart();}
 void handleJobStart(){
-  if(job!=JOB_NONE)return errorResponse("Otra operacion esta en curso",409);
+  if(job!=JOB_NONE)return errorResponse("Another operation is in progress",409);
   if(!sensorOnline||!indexValid)return errorResponse("Sensor o inventario no disponible",503);
   String type=server.arg("type");
   if(type!="identify"&&type!="enroll")return errorResponse("Tipo invalido");
@@ -534,12 +534,12 @@ void handleJobStart(){
     jobId=id;
   }
   job=(type=="identify")?JOB_IDENTIFY:JOB_ENROLL;jobStage=0;jobStarted=millis();lastPoll=0;
-  jobResult="running";jobMessage=type=="identify"?"Coloca el dedo":"Paso 1/3: coloca el dedo";
+  jobResult="running";jobMessage=type=="identify"?"Place your finger":"Step 1/3: place your finger";
   jsonResponse("{\"message\":\""+escapeJson(jobMessage)+"\"}");
 }
 void handleJob(){jsonResponse("{\"status\":\""+jobResult+"\",\"message\":\""+escapeJson(jobMessage)+"\"}");}
 void handleDelete(){
-  if(job!=JOB_NONE)return errorResponse("Operacion en curso",409);
+  if(job!=JOB_NONE)return errorResponse("Operation in progress",409);
   if(!sensorOnline||!indexValid)return errorResponse("Inventory unavailable",503);
   String s=server.arg("id");if(s.isEmpty())return errorResponse("ID requerido");
   for(size_t i=0;i<s.length();i++)if(!isDigit(s[i]))return errorResponse("ID invalido");
@@ -551,9 +551,9 @@ void handleDelete(){
   jsonResponse("{\"message\":\"Template deleted\"}");
 }
 void handleClear(){
-  if(job!=JOB_NONE)return errorResponse("Operacion en curso",409);
+  if(job!=JOB_NONE)return errorResponse("Operation in progress",409);
   if(!sensorOnline)return errorResponse("Sensor disconnected",503);
-  if(server.arg("confirm")!="DELETE ALL")return errorResponse("Confirmacion requerida");
+  if(server.arg("confirm")!="DELETE ALL")return errorResponse("Confirmation required");
   uint8_t r=sensor.emptyDatabase();if(r!=FINGERPRINT_OK)return errorResponse("Memory erase error: "+String(r),500);
   lastEvent="Biometric memory erased";refreshSensor();jsonResponse("{\"message\":\"Biometric memory erased\"}");
 }
